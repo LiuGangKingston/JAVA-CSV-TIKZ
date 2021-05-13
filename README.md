@@ -38,32 +38,33 @@ are outputted to the "iterated.alldata.csv" file, including those which were alr
 
 In the source file JavaCSVTikZ.java, the class can make it easy to split a large amount of data then output them into a group of CSV files, and another large amount of data into another group of CSV files, and another another, unlimited. Hope this is helpful to reduce hardware memory requirement, supposing data can be used part by part during Latex file being processed. As an example, it may be done as:
 
-    totallines=500
-    startingline=1
-    datalinesineachfile=50
+    int totallines=500;
+    int startingline=1;
+    int datalinesineachfile=50;
     ...
-    
-    # The next object creation will also open files "iterated.alldata.1.csv", 
-    #                                               "iterated.alldata.2.csv", 
-    #                                               "iterated.alldata.3.csv", 
-    #                                               ..., 
-    #                                               till the last needed one:
+
+    // The next object creation will also open files "iterated.alldata.1.csv", 
+    //                                               "iterated.alldata.2.csv", 
+    //                                               "iterated.alldata.3.csv", 
+    //                                               ..., 
+    //                                               till the last needed one:
     JavaCSVTikZ bigfile = new JavaCSVTikZ("iterated.alldata.",startingline,totallines,datalinesineachfile);
 
-    # The next routine call will output the long string into all the above files as the top line:
-    bigfile.FirstLineToFiles("variablenames"+"seperate"+"bycommaswithoutanythingelse\n")
+    // The next routine call will output the long string into all the above files as the top line:
+    bigfile.FirstLineToFiles("variablenames"+"seperate"+"bycommaswithoutanythingelse\n");
 
     for(i=startingline; i<=totallines; i++) {
         ...
 
-        # The next statement will output data of variables into the specific file based on "i" value. 
+        // The next statement will output data of variables into the specific file based on "i" value. 
         (bigfile.GetFileForRow(i)).write(onevariable+ "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + bigfile.PickTikZColor(i) + "\n");
+    }
 
-    # The next routine call will close all files in the group.
+    // The next routine call will close all files in the group.
     bigfile.FileGroupClose();
 
 It is used in example01.500beams.data.split and example02.ellipsoidal. 
