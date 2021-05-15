@@ -43,16 +43,16 @@ class Main {
     //                                               "iterated.alldata.3.csv", 
     //                                               ..., 
     //                                               till the last needed one:
-    JavaCSVTikZ bigfile = new JavaCSVTikZ("iterated.alldata.",startingline,totallines,datalinesineachfile);
+    JavaCSVTikZFileGroup bigfiles = new JavaCSVTikZFileGroup("iterated.alldata.",startingline,totallines,datalinesineachfile);
 
     // The next routine call will output the long string into all the above files as the top line:
-    bigfile.FirstLineToFiles("variablenames"+"seperate"+"bycommaswithoutanythingelse\n");
+    bigfiles.FirstLineToFiles("variablenames"+"seperate"+"bycommaswithoutanythingelse\n");
 
     for(i=startingline; i<=totallines; i++) {
         ...
 
         // The next statement will output data of variables into the specific file based on "i" value. 
-        (bigfile.GetFileForRow(i)).write(onevariable+ "," + anothervariable + "," + anothervariable + ","
+        (bigfiles.GetFileForRow(i)).write(onevariable+ "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + "," + anothervariable + "," + anothervariable + ","
           + anothervariable + "," + anothervariable + "," + anothervariable + "," + anothervariable + ","
@@ -60,7 +60,7 @@ class Main {
     }
 
     // The next routine call will close all files in the group.
-    bigfile.FileGroupClose();
+    bigfiles.FileGroupClose();
   }
 
 
