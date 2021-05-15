@@ -35,16 +35,16 @@ class Main {
     double  refractiveindex, bigradius , a ,b , z, anglez, c, anglea, incidentangle;
     double  refractiveangle, anglede, dx, ee, et, ex, ey, anglece, angleced, outangle;
 
-    JavaCSVTikZ bigfile = new JavaCSVTikZ("not.used.",1,1,1);
+    ConstantsForJavaCSVTikZ csts = new ConstantsForJavaCSVTikZ();
 
     refractiveindex=1.5e0;
     bigradius=8.0e0;
     a=3.0e0;
     b=3.0e0;
     z=Math.sqrt(bigradius * bigradius- b * b);
-    anglez=Math.asin(b/bigradius)*bigfile.Rad2Deg;
+    anglez=Math.asin(b/bigradius)*csts.Rad2Deg;
     c=-Math.sqrt(bigradius * bigradius - (a+b) * (a+b));
-    anglea=Math.acos(c/bigradius)*bigfile.Rad2Deg;
+    anglea=Math.acos(c/bigradius)*csts.Rad2Deg;
 
     try {
         FileWriter afile = new FileWriter("setup.scalars.csv");
@@ -66,10 +66,10 @@ class Main {
 
          for(i=startingline; i<=totallines; i++) {
              incidentangle=3.0e0 + 0.5e0*i;
-             refractiveangle=Math.asin(Math.sin(incidentangle*bigfile.Deg2Rad)/refractiveindex)*bigfile.Rad2Deg;
+             refractiveangle=Math.asin(Math.sin(incidentangle*csts.Deg2Rad)/refractiveindex)*csts.Rad2Deg;
              anglede=180-refractiveangle-anglea;
              // x component of D position
-             dx=a/Math.tan(anglede*bigfile.Deg2Rad) + c;
+             dx=a/Math.tan(anglede*csts.Deg2Rad) + c;
 
              //! To find E position by solving equations, with t and et as DE length:
              //!  (t sin(anglede) + \b)^2 + (t cos(anglede) + \dx )^2 = 64
@@ -77,21 +77,21 @@ class Main {
              //!  = 64 - \b^2 - \dx^2 + (\b sin +  \dx cos  )^2
              //!  t = sqrt ((\b sin + \dx cos )^2 +  64 - \b^2 - \dx^2 )  - (\b sin + \dx cos )
 
-             ee=b*Math.sin(anglede*bigfile.Deg2Rad) + dx*Math.cos(anglede*bigfile.Deg2Rad);
+             ee=b*Math.sin(anglede*csts.Deg2Rad) + dx*Math.cos(anglede*csts.Deg2Rad);
              et=Math.sqrt(ee * ee + bigradius * bigradius -b * b - dx * dx) - ee;
 
              //! x and y components of E position
-             ex=et*Math.cos(anglede*bigfile.Deg2Rad) + dx;
-             ey=et*Math.sin(anglede*bigfile.Deg2Rad) + b;
-             anglece=Math.acos(ex/Math.sqrt(ex * ex+ey * ey))*bigfile.Rad2Deg;
+             ex=et*Math.cos(anglede*csts.Deg2Rad) + dx;
+             ey=et*Math.sin(anglede*csts.Deg2Rad) + b;
+             anglece=Math.acos(ex/Math.sqrt(ex * ex+ey * ey))*csts.Rad2Deg;
              angleced=anglece-anglede;
-             outangle=Math.asin(Math.sin(angleced*bigfile.Deg2Rad) * refractiveindex)*bigfile.Rad2Deg;
+             outangle=Math.asin(Math.sin(angleced*csts.Deg2Rad) * refractiveindex)*csts.Rad2Deg;
 
              bfile.write(totallines+ "," + i+ "," + refractiveindex+ ","
                   + bigradius+ ","+ a+ "," + b + "," + z+ "," + anglez+ "," + c + "," + anglea
                   + "," + incidentangle + "," + refractiveangle + "," + anglede + "," + dx + ","
                   + ee+ "," + et + "," + ex + "," + ey + "," + anglece + "," + angleced + ","
-                  + outangle + "," + bigfile.PickTypicalColor(i) + "\n");
+                  + outangle + "," + csts.PickTypicalColor(i) + "\n");
          }
          bfile.close();
     } catch (IOException e) {
