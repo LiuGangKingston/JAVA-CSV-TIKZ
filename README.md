@@ -38,7 +38,7 @@ The first contains data computed only one-time for figure setup. The second one 
 
 are outputted to the "iterated.alldata.csv" file, including those which were already outputted into previous CSV files. 
 
-In the source file JavaCSVTikZ.java, the class can make it easy to split a large amount of data then output them into a group of CSV files, and another large amount of data into another group of CSV files, and another another, unlimited. Hope this is helpful to reduce hardware memory requirement, supposing data can be used part by part during Latex file being processed. As an example, it may be done as:
+In the source file JavaCSVTikZFileGroup.java, the class can make it easy to split a large amount of data then output them into a group of CSV files, and another large amount of data into another group of CSV files, and another another, unlimited. Hope this is helpful to reduce hardware memory requirement, supposing data can be used part by part during Latex file being processed. As an example, it may be done as:
 
     int totallines=500;
     int startingline=1;
