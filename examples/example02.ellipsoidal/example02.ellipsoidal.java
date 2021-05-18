@@ -94,7 +94,7 @@ class Main {
                                              + tangentangle + "," + normalangle + "," + incidentangle + ","
                                              + reflectangle + "," + csts.PickTypicalColor(i) + "\n");
        } catch (IOException e) {
-         System.out.println("An error occurred when closing the file setup.scalars.csv, then stopped.");
+         System.out.println("An error occurred when writing the files iterated.alldata.*.csv, then stopped.");
          e.printStackTrace();
          System.exit(-9);
        }
